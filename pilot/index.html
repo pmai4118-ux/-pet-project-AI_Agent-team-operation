@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bảng ticket · Phòng ban tech</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, sans-serif;
+      color: #172235;
+      background: #f1f5f8;
+    }
+
+    body { margin: 0; }
+
+    main {
+      max-width: 42rem;
+      margin: clamp(1rem, 8vh, 5rem) auto;
+      padding: 0 1rem;
+    }
+
+    header { margin-bottom: 1.5rem; }
+    h1 { margin: 0.25rem 0; font-size: clamp(1.8rem, 6vw, 2.5rem); }
+    p { margin: 0; }
+    .eyebrow { font-size: 0.9rem; font-weight: 650; color: #31556b; }
+    .description { color: #425469; }
+
+    .board {
+      background: #fff;
+      border: 1px solid #cad7e1;
+      border-radius: 0.8rem;
+      padding: clamp(0.75rem, 4vw, 1.5rem);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+    }
+
+    label { font-weight: 650; }
+    select {
+      min-height: 2.5rem;
+      border: 1px solid #6e8190;
+      border-radius: 0.35rem;
+      background: #fff;
+      color: inherit;
+      font: inherit;
+      padding: 0.35rem 0.5rem;
+    }
+
+    select:focus-visible { outline: 3px solid #176189; outline-offset: 2px; }
+    #count { margin-left: auto; font-variant-numeric: tabular-nums; }
+    ul { padding: 0; margin: 0; list-style: none; }
+
+    li {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.4rem 1rem;
+      border-top: 1px solid #e0e8ef;
+      padding: 0.85rem 0;
+    }
+
+    .badge {
+      border-radius: 1rem;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.85rem;
+      background: #e8edf2;
+      color: #283e53;
+    }
+
+    .badge[data-status="doing"] { background: #dceefa; color: #15476a; }
+    .badge[data-status="done"] { background: #dff3e9; color: #245440; }
+    #empty { border-top: 1px solid #e0e8ef; padding: 1rem 0; color: #425469; }
+  </style>
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">PHÒNG BAN TECH · TECH-001</p>
+      <h1>Bảng ticket</h1>
+      <p class="description">Lọc dữ liệu mẫu để xem tiến độ theo trạng thái.</p>
+    </header>
+    <section class="board" aria-label="Bảng theo dõi tiến độ">
+      <div class="controls">
+        <label for="status">Trạng thái</label>
+        <select id="status">
+          <option value="all">Tất cả</option>
+        </select>
+        <p id="count" role="status" aria-atomic="true"></p>
+      </div>
+      <ul id="tickets" aria-label="Danh sách ticket"></ul>
+      <p id="empty" hidden>Không có ticket ở trạng thái này.</p>
+    </section>
+  </main>
+</body>
+</html>
