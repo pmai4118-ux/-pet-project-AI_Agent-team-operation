@@ -13,8 +13,12 @@
 
 ## Bàn giao cho Antigravity
 
-> Review độc lập TECH-001 trong workspace này. Đọc AGENTS.md và ticket này, xem mã trong pilot/ và giữ nguyên mã nguồn. Trước hết ghi commit HEAD đang kiểm tra hoặc ghi rõ nếu chưa có commit. Chạy node --test pilot/filter.test.mjs và báo kết quả thực tế. Tự chạy node --test pilot/browser.test.mjs theo hướng dẫn trong README.md hoặc mở bản chạy từ node pilot/server.mjs để kiểm tra AC1 đến AC4, gồm thao tác bàn phím. Báo từng mục theo PASS, FAIL hoặc BLOCKED và ghi bằng chứng quan sát được. Ghi lỗi đáng xử lý kèm vị trí hoặc bước tái hiện. Nêu rõ mục nào chỉ đọc code mà chưa chạy. Trả kết quả trong phiên hiện tại bằng tiếng Việt.
+> Review độc lập TECH-001 trong workspace này. Đọc AGENTS.md và ticket này, xem mã trong pilot/ và giữ nguyên mã nguồn. Trước hết ghi commit HEAD đang kiểm tra. Chạy node --test pilot/filter.test.mjs pilot/server.test.mjs và báo kết quả thực tế. Tự chạy node --test pilot/browser.test.mjs theo hướng dẫn trong README.md hoặc mở bản chạy từ node pilot/server.mjs để kiểm tra AC1 đến AC4, gồm thao tác bàn phím. Báo từng mục theo PASS, FAIL hoặc BLOCKED và ghi bằng chứng quan sát được. Ghi lỗi đáng xử lý kèm vị trí hoặc bước tái hiện. Nêu rõ mục nào chỉ đọc code mà chưa chạy. Trả kết quả trong phiên hiện tại bằng tiếng Việt.
 
 ## Nghiệm thu
 
-Product Owner đối chiếu tiêu chí với kết quả review và quyết định.
+[Hồ sơ review và kiểm thử](../reviews/TECH-001.md) ghi bằng chứng hiện có. Product Owner đối chiếu tiêu chí với kết quả review và quyết định.
+
+## Câu hỏi cho Gemini Web
+
+> Antigravity cho rằng `import.meta.main` không tồn tại trong Node.js. Pilot dùng Node.js 24.22.1. Bài kiểm thử gọi trực tiếp `node pilot/server.mjs 0` nhận địa chỉ loopback và HTTP 200. Đối chiếu tài liệu Node.js chính thức về `import.meta.main` rồi đánh giá nhận xét đó. Nêu điều kiện phiên bản cần ghi trong README và trường hợp nào sẽ cần đổi cách nhận diện entry point.

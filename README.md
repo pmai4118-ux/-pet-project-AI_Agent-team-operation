@@ -4,14 +4,14 @@ Workspace này thử quy trình Codex điều phối và triển khai, Antigravi
 
 ## Chạy tính năng thử
 
-TECH-001 là bộ lọc trạng thái cho một bảng ticket mẫu. Bản thử đã dùng Node.js 24. Ứng dụng và test logic dùng thư viện chuẩn của Node.js.
+TECH-001 là bộ lọc trạng thái cho một bảng ticket mẫu. Dùng Node.js từ 24.2 trở lên. Ứng dụng và test logic dùng thư viện chuẩn của Node.js.
 
 ```powershell
-node --test pilot/filter.test.mjs
+node --test pilot/filter.test.mjs pilot/server.test.mjs
 node pilot/server.mjs
 ```
 
-Mở địa chỉ in trong terminal, mặc định là `http://127.0.0.1:4173`. Thử bốn trạng thái và nút **Tất cả**. Nhấn Ctrl+C để dừng máy chủ. Có thể truyền số cổng khác, ví dụ `node pilot/server.mjs 4174`.
+Mở địa chỉ in trong terminal, mặc định là `http://127.0.0.1:4173`. Thử bốn trạng thái và mục **Tất cả**. Nhấn Ctrl+C để dừng máy chủ. Có thể truyền số cổng khác, ví dụ `node pilot/server.mjs 4174`.
 
 Để tự động kiểm tra trên trình duyệt, dùng Microsoft Edge và Playwright. Trên máy này có thể dùng Playwright đi kèm runtime của Codex:
 
@@ -30,10 +30,10 @@ Test trình duyệt tự mở máy chủ loopback trên một cổng trống và
 4. Khi tiêu chí còn mơ hồ hoặc có bất đồng, đưa phần bối cảnh cần thiết vào [mẫu Gemini Web](team/templates/gemini-review.md). Ghi câu hỏi và quyết định sau phản biện trong ticket.
 5. Product Owner đối chiếu kết quả và quyết định nghiệm thu. Nếu có lỗi hoặc thiếu bằng chứng, ticket quay lại người phụ trách.
 
-Pilot hiện tại dùng [ticket TECH-001](team/tickets/TECH-001.md). Có thể dán yêu cầu bàn giao ở cuối ticket vào Antigravity App, mở đúng thư mục của workspace và yêu cầu agent chạy kiểm thử. Để dùng CLI trên Windows, chạy từ thư mục gốc:
+Pilot hiện tại dùng [ticket TECH-001](team/tickets/TECH-001.md) và lưu bằng chứng trong [hồ sơ review](team/reviews/TECH-001.md). Có thể dán yêu cầu bàn giao trong ticket vào Antigravity IDE. Để dùng CLI tương tác trên Windows, chạy từ thư mục gốc:
 
 ```powershell
-agy --sandbox --print 'Review TECH-001 using team/tickets/TECH-001.md and follow its Antigravity handoff.'
+agy --sandbox --prompt-interactive 'Review TECH-001 using team/tickets/TECH-001.md and follow its Antigravity handoff.'
 ```
 
-Khi CLI không cấp được quyền chạy test, mở Antigravity App để duyệt lệnh phù hợp và lưu kết quả thực tế vào hồ sơ review. Gemini Web là một điểm bàn giao theo yêu cầu trong quy trình này.
+CLI tương tác có thể yêu cầu chủ workspace xác nhận tin cậy thư mục và duyệt từng lệnh. Chế độ headless trên máy này đã chặn lệnh test cần duyệt. Khi gặp trường hợp đó, có thể yêu cầu review tĩnh bằng cách cung cấp nội dung của đúng commit và ghi riêng phần kiểm thử bị chặn.
