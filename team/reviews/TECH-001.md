@@ -1,8 +1,9 @@
 # Review và kiểm thử TECH-001
 
 - **Phiên bản mã ứng dụng được review** `c261c43fbec32e1ae7eb9c7cd803ef82588b80c4`
-- **Reviewer** Google Antigravity CLI 1.0.16, Gemini 3.8 Flash Medium
-- **Trạng thái** Đã review tĩnh và xác minh trên máy. Chờ Antigravity tự chạy test.
+- **Reviewer tĩnh** Google Antigravity CLI 1.0.16, Gemini 3.8 Flash Medium
+- **Kiểm thử chéo** Google Antigravity CLI 1.5.3, Gemini 3.8 Flash Medium
+- **Trạng thái** Kiểm thử chéo đạt, chờ Product Owner nghiệm thu.
 
 ## Review của Antigravity
 
@@ -10,7 +11,7 @@ Antigravity nhận nội dung ticket và mã ứng dụng lấy trực tiếp t�
 
 Reviewer cho rằng `node pilot/server.mjs` sẽ thoát vì Node.js thiếu `import.meta.main`. Reviewer đề xuất chạy tiến trình Node riêng để kiểm tra lệnh khởi động.
 
-Phiên headless đã từ chối lệnh cần quyền `command`. Phiên tương tác yêu cầu tin cậy workspace với quyền đọc, sửa và thực thi, nên dừng ở bước đó. Lượt review tĩnh hoàn thành với 0 ca test do Antigravity thực thi.
+Trong lượt đầu, phiên headless từ chối lệnh cần quyền `command` và phiên tương tác dừng ở bước yêu cầu tin cậy workspace. Kết quả bên dưới ghi lượt thực thi sau khi Product Owner cấp quyền.
 
 ## Xác minh của Codex
 
@@ -18,14 +19,23 @@ Mình chạy lại đề xuất của Antigravity trên Node.js 24.22.1. Tiến 
 
 Ca kiểm thử khởi động được lưu ở [server.test.mjs](../../pilot/server.test.mjs). README ghi rõ phiên bản Node dùng cho pilot.
 
-| Người chạy | Kiểm thử | Kết quả |
-| --- | --- | --- |
-| Codex | `node --test pilot/filter.test.mjs` | 5/5 ca lọc theo ID và thứ tự |
-| Codex | `node --test pilot/server.test.mjs` | Máy chủ CLI khởi động và trả HTTP 200 |
-| Codex | `node --test pilot/browser.test.mjs` | Edge đạt AC1–AC4, gồm số đếm, trạng thái rỗng và quay về **Tất cả** bằng phím Home |
-| Antigravity | Tự chạy bộ test trên workspace | Bị chặn ở bước quyền thực thi |
+| Người chạy | Kiểm thử                             | Kt quả                                                                             |
+| ---------- | ------------------------------------ | ---------------------------------------------------------------------------------- |
+| Codex      | `node --test pilot/filter.test.mjs`  | 5/5 ca lọc theo ID và thứ tự                                                       |
+| Codex      | `node --test pilot/server.test.mjs`  | Máy chủ CLI khởi động và trả HTTP 200                                              |
+| Codex      | `node --test pilot/browser.test.mjs` | Edge đạt AC1–AC4, gồm số đếm, trạng thái rỗng và quay về **Tất cả** bằng phím Home |
 
 Lượt chạy gộp trên máy đạt 7/7. Phần trình duyệt và kiểm tra HTTP chạy với quyền mở Edge và kết nối loopback.
+
+## Kiểm thử chéo của Antigravity
+
+Ngày 07/11/2026, Antigravity tự chạy `git rev-parse HEAD` và xác nhận commit `add495c12242e2a88b573478ff638379246fd553`. Phiên headless dùng quyền riêng cho lệnh xác nhận commit và lệnh kiểm thử đã duyệt. Lệnh kiểm thử chạy trực tiếp trên máy để dùng Edge và kết nối HTTP loopback.
+
+```powershell
+node --test pilot/filter.test.mjs pilot/server.test.mjs pilot/browser.test.mjs
+```
+
+Mã thoát `0`. Antigravity ghi nhận 7/7 ca đạt, gồm 5 ca lọc, 1 ca khởi động máy chủ và 1 ca Edge kiểm tra AC1–AC4. Thời gian bộ test là 1,49 giây. Phiên Antigravity `595e27a5-9448-4c60-96ab-da1bee04bf31`.
 
 ## Bàn giao cho Gemini Web
 
